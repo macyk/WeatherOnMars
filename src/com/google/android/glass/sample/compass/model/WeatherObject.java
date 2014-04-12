@@ -8,13 +8,15 @@ public class WeatherObject {
   public double minTemp ;
   public double windSpeed ;
   public String season ;
+  public String atmoOpacity ;
   public String sol ;
 
-  public WeatherObject(double maxTemp, double minTemp, double windSpeed, String season) {
+  public WeatherObject(double maxTemp, double minTemp, double windSpeed, String season, String atmoOpacity, String sol) {
     this.maxTemp = maxTemp;
     this.minTemp = minTemp;
     this.windSpeed = windSpeed;
     this.season = season;
-    this.season = season;
+    this.atmoOpacity = atmoOpacity;
+    this.sol = sol;
   }
 }

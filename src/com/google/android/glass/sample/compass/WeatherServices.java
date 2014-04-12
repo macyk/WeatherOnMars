@@ -161,9 +161,16 @@ public class WeatherServices extends Service
 
       RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
       R.layout.livecard_livecarddemo);
-      remoteViews.setTextViewText(R.id.livecard_content, "min temp : "+weatherObject.minTemp);
-      remoteViews.setTextViewText(R.id.livecard_content2, "max temp : "+weatherObject.maxTemp);
+      remoteViews.setTextViewText(R.id.tvTempMin, String.valueOf(weatherObject.minTemp));
+      remoteViews.setTextViewText(R.id.tvTempMax, String.valueOf(weatherObject.maxTemp));
 
+      if(weatherObject.atmoOpacity.equals("Sunny")){
+        remoteViews.setImageViewResource(R.id.atmoOpacity, R.drawable.sun);
+      }
+      else {
+        remoteViews.setImageViewResource(R.id.atmoOpacity, R.drawable.cloud);
+
+      }
       liveCard.setViews(remoteViews);
 
 
@@ -238,11 +245,13 @@ public class WeatherServices extends Service
 
 
         String season = resul.getString("season");
+        String atmoOpacity = resul.getString("season");
+        String sol = resul.getString("season");
         double windSpeed = resul.getInt("wind_speed");
         double maxTemp = resul.getDouble("max_temp");
         double mainTemp = resul.getDouble("min_temp");
 
-         weatherObject = new WeatherObject(maxTemp, mainTemp, windSpeed, season);
+         weatherObject = new WeatherObject(maxTemp, mainTemp, windSpeed, season, atmoOpacity, sol);
 
 
         publishCard(getApplicationContext());

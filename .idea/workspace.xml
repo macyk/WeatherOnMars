@@ -22,9 +22,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cd59bc1e-941d-4017-a788-03c8b4d455a9" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/google/android/glass/sample/compass/DownloadWeather.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/google/android/glass/sample/compass/CompassMenuActivity.java" afterPath="$PROJECT_DIR$/src/com/google/android/glass/sample/compass/CompassMenuActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/google/android/glass/sample/compass/CompassService.java" afterPath="$PROJECT_DIR$/src/com/google/android/glass/sample/compass/CompassService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/google/android/glass/sample/compass/WeatherServices.java" afterPath="$PROJECT_DIR$/src/com/google/android/glass/sample/compass/WeatherServices.java" />
     </list>
     <ignored path="WeatherOnMars.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -100,11 +99,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CompassMenuActivity.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="CompassMenuActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/google/android/glass/sample/compass/CompassMenuActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5555556" vertical-offset="270" max-vertical-offset="1455">
-              <caret line="59" column="6" selection-start-line="59" selection-start-column="6" selection-end-line="59" selection-end-column="6" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="1455">
+              <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -113,12 +112,32 @@
       <file leaf-file-name="CompassService.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/google/android/glass/sample/compass/CompassService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1215" max-vertical-offset="2400">
-              <caret line="201" column="3" selection-start-line="201" selection-start-column="3" selection-end-line="201" selection-end-column="3" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="1800">
+              <caret line="98" column="0" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
               <folding>
                 <element signature="e#2761#2795#0" expanded="true" />
                 <element signature="e#2850#2880#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WeatherServices.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/google/android/glass/sample/compass/WeatherServices.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.26992288" vertical-offset="0" max-vertical-offset="945">
+              <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CompassRenderer.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/google/android/glass/sample/compass/CompassRenderer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="594" max-vertical-offset="3525">
+              <caret line="106" column="7" selection-start-line="106" selection-start-column="7" selection-end-line="106" selection-end-column="7" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -150,9 +169,10 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/src/com/google/android/glass/sample/compass/DownloadWeather.java" />
-        <option value="$PROJECT_DIR$/src/com/google/android/glass/sample/compass/CompassService.java" />
         <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/com/google/android/glass/sample/compass/CompassMenuActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/google/android/glass/sample/compass/CompassService.java" />
+        <option value="$PROJECT_DIR$/src/com/google/android/glass/sample/compass/WeatherServices.java" />
       </list>
     </option>
   </component>
@@ -245,6 +265,8 @@
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="CB5122VZ6H" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="MyAvd0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/libs/android-async-http-1.4.4.jar!/" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="OverrideImplement.overriding.sorted" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -507,7 +529,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3287841" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287841" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39974293" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -619,10 +641,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/google/android/glass/sample/compass/CompassMenuActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="1455">
+          <caret line="59" column="0" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/google/android/glass/sample/compass/CompassRenderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="594" max-vertical-offset="3525">
+          <caret line="106" column="7" selection-start-line="106" selection-start-column="7" selection-end-line="106" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/google/android/glass/sample/compass/CompassService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1215" max-vertical-offset="2400">
-          <caret line="201" column="3" selection-start-line="201" selection-start-column="3" selection-end-line="201" selection-end-column="3" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="1800">
+          <caret line="98" column="0" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
           <folding>
             <element signature="e#2761#2795#0" expanded="true" />
             <element signature="e#2850#2880#0" expanded="true" />
@@ -630,10 +668,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/google/android/glass/sample/compass/CompassMenuActivity.java">
+    <entry file="file://$PROJECT_DIR$/src/com/google/android/glass/sample/compass/WeatherServices.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5555556" vertical-offset="270" max-vertical-offset="1455">
-          <caret line="59" column="6" selection-start-line="59" selection-start-column="6" selection-end-line="59" selection-end-column="6" />
+        <state vertical-scroll-proportion="0.26992288" vertical-offset="0" max-vertical-offset="945">
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding />
         </state>
       </provider>

@@ -161,8 +161,8 @@ public class WeatherServices extends Service
 
       RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
       R.layout.livecard_livecarddemo);
-      remoteViews.setTextViewText(R.id.tvTempMin, String.valueOf(weatherObject.minTemp));
-      remoteViews.setTextViewText(R.id.tvTempMax, String.valueOf(weatherObject.maxTemp));
+      remoteViews.setTextViewText(R.id.tvTempMin, String.valueOf(weatherObject.minTemp) + "°C");
+      remoteViews.setTextViewText(R.id.tvTempMax, String.valueOf(weatherObject.maxTemp) + "°C");
 
       if(weatherObject.atmoOpacity.equals("Sunny")){
         remoteViews.setImageViewResource(R.id.atmoOpacity, R.drawable.sun);

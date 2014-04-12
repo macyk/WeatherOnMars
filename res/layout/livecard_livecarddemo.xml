@@ -35,7 +35,7 @@
       android:layout_height="wrap_content"
       android:textAppearance="?android:attr/textAppearanceLarge"
       android:id="@+id/tvTempMax"
-      android:textSize="60sp"
+      android:textSize="55sp"
       android:layout_toRightOf="@+id/tv1"
       android:text="gfdgdf"
       android:layout_marginTop="-30dp"
@@ -59,7 +59,7 @@
       android:id="@+id/tvTempMin"
       android:layout_alignTop="@+id/tvTemp"
       android:layout_toRightOf="@+id/tvTemp"
-      android:textSize="60dp"
+      android:textSize="55dp"
       android:layout_marginTop="-30dp"
       android:layout_marginLeft="20dp"
       android:text="gfdfg"/>

@@ -16,17 +16,19 @@
 
 package com.google.android.glass.sample.compass;
 
-import com.google.android.glass.sample.compass.util.MathUtils;
-
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONArray;
 
 /**
  * This activity manages the options menu that appears when the user taps on the compass's live
@@ -56,6 +58,17 @@ public class CompassMenuActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         bindService(new Intent(this, CompassService.class), mConnection, 0);
+      Log.d("weather", "downloading weather");
+
+
+      DownloadWeather.get( new JsonHttpResponseHandler() {
+        @Override
+        public void onSuccess(JSONArray timeline) {
+          Log.d("weather", "success download weather");
+
+
+        }
+      });
     }
 
     @Override

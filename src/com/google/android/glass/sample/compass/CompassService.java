@@ -23,28 +23,15 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.hardware.SensorManager;
 import android.location.LocationManager;
-import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
-import android.util.Log;
 
 import com.google.android.glass.sample.compass.model.Landmarks;
 import com.google.android.glass.sample.compass.util.MathUtils;
 import com.google.android.glass.timeline.LiveCard;
 import com.google.android.glass.timeline.LiveCard.PublishMode;
 import com.google.android.glass.timeline.TimelineManager;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 /**
  * The main application service that manages the lifetime of the compass live card and the objects

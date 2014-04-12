@@ -79,6 +79,7 @@ public class WeatherServices extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (mLiveCard == null) {
             mLiveCard = mTimelineManager.createLiveCard(LIVE_CARD_ID);
+            Log.d("weather", "started!");
             mRenderer = new WeatherRender(this);
 
             mLiveCard.setDirectRenderingEnabled(true).getSurfaceHolder().addCallback(mRenderer);
@@ -162,7 +163,7 @@ public class WeatherServices extends Service {
 
         WeatherObject weatherObject = new WeatherObject(maxTemp, mainTemp, windSpeed, season);
 
-
+        mRenderer.WeatherLoaded(weatherObject);
 
       } catch (JSONException e) {
         e.printStackTrace();

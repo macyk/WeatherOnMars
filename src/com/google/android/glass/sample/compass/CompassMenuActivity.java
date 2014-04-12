@@ -26,10 +26,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import org.json.JSONArray;
-
 /**
  * This activity manages the options menu that appears when the user taps on the compass's live
  * card.
@@ -61,14 +57,7 @@ public class CompassMenuActivity extends Activity {
       Log.d("weather", "downloading weather");
 
 
-      DownloadWeather.get( new JsonHttpResponseHandler() {
-        @Override
-        public void onSuccess(JSONArray timeline) {
-          Log.d("weather", "success download weather");
 
-
-        }
-      });
     }
 
     @Override

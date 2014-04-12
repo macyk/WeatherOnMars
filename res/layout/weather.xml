@@ -32,7 +32,6 @@
     android:alpha="0">
 
     <TextView
-<<<<<<< HEAD
       android:id="@+id/max_temp"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -47,17 +46,3 @@
   </RelativeLayout>
 
 </FrameLayout>
-=======
-        android:id="@+id/max_temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/card_margin"
-        android:singleLine="true"
-        android:ellipsize="end"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#ffffff"
-        android:text="Loading" />
-</LinearLayout>
->>>>>>> 9465a88e5f53b67032384909dfbd6c5db391b620

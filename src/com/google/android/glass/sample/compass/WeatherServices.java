@@ -4,18 +4,13 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.hardware.SensorManager;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
-import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.widget.RemoteViews;
 
-import com.google.android.glass.sample.compass.model.Landmarks;
 import com.google.android.glass.sample.compass.model.WeatherObject;
-import com.google.android.glass.sample.compass.util.MathUtils;
 import com.google.android.glass.timeline.LiveCard;
 import com.google.android.glass.timeline.TimelineManager;
 
@@ -32,89 +27,167 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-/**
- * Created by Macy on 2014-04-12.
- */
-public class WeatherServices extends Service {
-    private static final String LIVE_CARD_ID = "weather";
-    private LiveCard mLiveCard;
-    private TimelineManager mTimelineManager;
-    private WeatherRender mRenderer;
-    private Landmarks mLandmarks;
-    private TextToSpeech mSpeech;
-    public IBinder onBind(Intent intent) {
-        return null;
+
+// ...
+public class WeatherServices extends Service
+{
+  // "Life cycle" constants
+
+  // [1] Starts from this..
+  private static final int STATE_NORMAL = 1;
+
+  // [2] When panic action has been triggered by the user.
+  private static final int STATE_PANIC_TRIGGERED = 2;
+
+  // [3] Note that cancel, or successful send, etc. change the state back to normal
+  // These are intermediate states...
+  private static final int STATE_CANCEL_REQUESTED = 4;
+  private static final int STATE_CANCEL_PROCESSED = 8;
+  private static final int STATE_PANIC_PROCESSED = 16;
+  // ....
+
+  // Global "state" of the service.
+  // Currently not being used...
+  private int currentState;
+
+
+  // For live card
+  private LiveCard liveCard;
+
+  public WeatherObject weatherObject;
+
+
+  // No need for IPC...
+  public class LocalBinder extends Binder {
+    public WeatherServices getService() {
+      return WeatherServices.this;
     }
+  }
+  private final IBinder mBinder = new LocalBinder();
 
-  private OrientationManager mOrientationManager;
 
-
-    /**
-     * A binder that gives other components access to the speech capabilities provided by the
-     * service.
-     */
-    public class WeatherBinder extends Binder {
-        /**
-         * Read the current heading aloud using the text-to-speech engine.
-         */
-        public void readHeadingAloud() {
-            float heading = mOrientationManager.getHeading();
-
-            Resources res = getResources();
-            String[] spokenDirections = res.getStringArray(R.array.spoken_directions);
-            String directionName = spokenDirections[MathUtils.getHalfWindIndex(heading)];
-
-            int roundedHeading = Math.round(heading);
-            int headingFormat;
-            if (roundedHeading == 1) {
-                headingFormat = R.string.spoken_heading_format_one;
-            } else {
-                headingFormat = R.string.spoken_heading_format;
-            }
-
-            String headingText = res.getString(headingFormat, roundedHeading, directionName);
-            mSpeech.speak(headingText, TextToSpeech.QUEUE_FLUSH, null);
-        }
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        if (mLiveCard == null) {
-            mLiveCard = mTimelineManager.createLiveCard(LIVE_CARD_ID);
-
-          SensorManager sensorManager =
-            (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-          LocationManager locationManager =
-            (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-          mOrientationManager = new OrientationManager(sensorManager, locationManager);
-
-          mRenderer = new WeatherRender(this, mOrientationManager);
-
-            mLiveCard.setDirectRenderingEnabled(true).getSurfaceHolder().addCallback(mRenderer);
-
-            // Display the options menu when the live card is tapped.
-            Intent menuIntent = new Intent(this, WeatherMenuActivity.class);
-            menuIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            mLiveCard.setAction(PendingIntent.getActivity(this, 0, menuIntent, 0));
-
-            mLiveCard.publish(LiveCard.PublishMode.REVEAL);
-        }
-
-        return START_STICKY;
-    }
+  public WeatherServices()
+  {
+    super();
+  }
 
   @Override
-  public void onCreate() {
+  public void onCreate()
+  {
     super.onCreate();
-      SensorManager sensorManager =
-              (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-      LocationManager locationManager =
-              (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-      mOrientationManager = new OrientationManager(sensorManager, locationManager);
-      mLandmarks = new Landmarks(this);
-      mTimelineManager = TimelineManager.from(this);
-    new RequestTask().execute("http://marsweather.ingenology.com/v1/archive/?sol=155");
+
+    currentState = STATE_NORMAL;
   }
+
+  @Override
+  public int onStartCommand(Intent intent, int flags, int startId)
+  {
+    Log.i("weather"," + startId +  + intent");
+    onServiceStart();
+    return START_STICKY;
+  }
+
+  @Override
+  public IBinder onBind(Intent intent)
+  {
+    // ????
+    onServiceStart();
+    return mBinder;
+  }
+
+  @Override
+  public void onDestroy()
+  {
+    // ???
+    onServiceStop();
+
+    super.onDestroy();
+  }
+
+
+  // Service state handlers.
+  // ....
+
+  private boolean onServiceStart()
+  {
+    Log.d("weather","onServiceStart() called.");
+
+    // TBD:
+    // Publish live card...
+    // ....
+    // ....
+
+    new RequestTask().execute("http://marsweather.ingenology.com/v1/archive/?sol=155");
+
+    currentState = STATE_NORMAL;
+    return true;
+  }
+
+  private boolean onServicePause()
+  {
+    Log.d("weather","onServicePause() called.");
+    return true;
+  }
+  private boolean onServiceResume()
+  {
+    Log.d("weather","onServiceResume() called.");
+    return true;
+  }
+
+  private boolean onServiceStop()
+  {
+    Log.d("weather","onServiceStop() called.");
+
+    // TBD:
+    // Unpublish livecard here
+    // .....
+    unpublishCard(this);
+    // ...
+
+    return true;
+  }
+
+
+  // For live cards...
+
+  private void publishCard(Context context)
+  {
+    Log.d("weather","publishCard() called.");
+    if (liveCard == null) {
+      String cardId = "livecarddemo_card";
+      TimelineManager tm = TimelineManager.from(context);
+      liveCard = tm.createLiveCard(cardId);
+
+
+      RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
+      R.layout.livecard_livecarddemo);
+      remoteViews.setTextViewText(R.id.livecard_content, "min temp : "+weatherObject.minTemp);
+      remoteViews.setTextViewText(R.id.livecard_content2, "max temp : "+weatherObject.maxTemp);
+
+      liveCard.setViews(remoteViews);
+
+
+
+
+
+      Intent intent = new Intent(context, CompassMenuActivity.class);
+      liveCard.setAction(PendingIntent.getActivity(context, 0, intent, 0));
+      liveCard.publish(LiveCard.PublishMode.REVEAL);
+    } else {
+      // Card is already published.
+      return;
+    }
+  }
+
+  private void unpublishCard(Context context)
+  {
+    Log.d("weather","unpublishCard() called.");
+    if (liveCard != null) {
+      liveCard.unpublish();
+      liveCard = null;
+    }
+  }
+
 
   class RequestTask extends AsyncTask<String, String, String> {
 
@@ -169,8 +242,10 @@ public class WeatherServices extends Service {
         double maxTemp = resul.getDouble("max_temp");
         double mainTemp = resul.getDouble("min_temp");
 
-        WeatherObject weatherObject = new WeatherObject(maxTemp, mainTemp, windSpeed, season);
+         weatherObject = new WeatherObject(maxTemp, mainTemp, windSpeed, season);
 
+
+        publishCard(getApplicationContext());
 
 
       } catch (JSONException e) {
@@ -179,4 +254,5 @@ public class WeatherServices extends Service {
       //Do anything with response..
     }
   }
+
 }

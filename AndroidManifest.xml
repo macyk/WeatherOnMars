@@ -38,28 +38,27 @@
         <activity
             android:name="com.google.android.glass.sample.compass.CompassMenuActivity"
             android:theme="@style/MenuTheme" />
-        <activity android:name="com.google.android.glass.sample.compass.WeatherMenuActivity" />
 
-        <service
-            android:name="com.google.android.glass.sample.compass.CompassService"
-            android:label="@string/app_name"
-            android:icon="@drawable/ic_compass"
-            android:enabled="true" >
+      <!--<service-->
+            <!--android:name="com.google.android.glass.sample.compass.CompassService"-->
+            <!--android:label="@string/app_name"-->
+            <!--android:icon="@drawable/ic_compass"-->
+            <!--android:enabled="true" >-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.google.android.glass.action.VOICE_TRIGGER" />-->
+            <!--</intent-filter>-->
+            <!--<meta-data-->
+                <!--android:name="com.google.android.glass.VoiceTrigger"-->
+                <!--android:resource="@xml/compass_show" />-->
+        <!--</service>-->
+
+      <service android:name=".WeatherServices">
             <intent-filter>
                 <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
             </intent-filter>
             <meta-data
                 android:name="com.google.android.glass.VoiceTrigger"
                 android:resource="@xml/compass_show" />
-        </service>
-
-        <service android:name=".WeatherServices">
-            <intent-filter>
-                <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
-            </intent-filter>
-            <meta-data
-                android:name="com.google.android.glass.VoiceTrigger"
-                android:resource="@xml/weather_show" />
         </service>
 
     </application>

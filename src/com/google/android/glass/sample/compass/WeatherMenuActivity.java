@@ -7,6 +7,8 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 /**
  * Created by Macy on 2014-04-12.
@@ -27,10 +29,28 @@ public class WeatherMenuActivity extends Activity {
             // Do nothing.
         }
     };
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.compass, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.stop:
+                stopService(new Intent(this, WeatherServices.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bindService(new Intent(this, CompassService.class), mConnection, 0);
+        bindService(new Intent(this, WeatherServices.class), mConnection, 0);
         Log.d("weather", "downloading weather");
 
 

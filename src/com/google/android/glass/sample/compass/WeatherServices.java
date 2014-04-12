@@ -38,7 +38,7 @@ public class WeatherServices extends Service {
     private static final String LIVE_CARD_ID = "weather";
     private LiveCard mLiveCard;
     private TimelineManager mTimelineManager;
-    private CompassRenderer mRenderer;
+    private WeatherRender mRenderer;
     private Landmarks mLandmarks;
     private OrientationManager mOrientationManager;
     private TextToSpeech mSpeech;
@@ -78,12 +78,12 @@ public class WeatherServices extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (mLiveCard == null) {
             mLiveCard = mTimelineManager.createLiveCard(LIVE_CARD_ID);
-            mRenderer = new CompassRenderer(this, mOrientationManager, mLandmarks);
+            mRenderer = new WeatherRender(this);
 
             mLiveCard.setDirectRenderingEnabled(true).getSurfaceHolder().addCallback(mRenderer);
 
             // Display the options menu when the live card is tapped.
-            Intent menuIntent = new Intent(this, CompassMenuActivity.class);
+            Intent menuIntent = new Intent(this, WeatherMenuActivity.class);
             menuIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             mLiveCard.setAction(PendingIntent.getActivity(this, 0, menuIntent, 0));
 

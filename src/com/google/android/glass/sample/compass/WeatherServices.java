@@ -41,11 +41,13 @@ public class WeatherServices extends Service {
     private TimelineManager mTimelineManager;
     private WeatherRender mRenderer;
     private Landmarks mLandmarks;
-    private OrientationManager mOrientationManager;
     private TextToSpeech mSpeech;
     public IBinder onBind(Intent intent) {
         return null;
     }
+
+  private OrientationManager mOrientationManager;
+
 
     /**
      * A binder that gives other components access to the speech capabilities provided by the
@@ -79,7 +81,14 @@ public class WeatherServices extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (mLiveCard == null) {
             mLiveCard = mTimelineManager.createLiveCard(LIVE_CARD_ID);
-            mRenderer = new WeatherRender(this);
+
+          SensorManager sensorManager =
+            (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+          LocationManager locationManager =
+            (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+          mOrientationManager = new OrientationManager(sensorManager, locationManager);
+
+          mRenderer = new WeatherRender(this, mOrientationManager);
 
             mLiveCard.setDirectRenderingEnabled(true).getSurfaceHolder().addCallback(mRenderer);
 

@@ -14,6 +14,7 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 
 import com.google.android.glass.sample.compass.model.Landmarks;
+import com.google.android.glass.sample.compass.model.WeatherObject;
 import com.google.android.glass.sample.compass.util.MathUtils;
 import com.google.android.glass.timeline.LiveCard;
 import com.google.android.glass.timeline.TimelineManager;
@@ -158,6 +159,8 @@ public class WeatherServices extends Service {
         double windSpeed = resul.getInt("wind_speed");
         double maxTemp = resul.getDouble("max_temp");
         double mainTemp = resul.getDouble("min_temp");
+
+        WeatherObject weatherObject = new WeatherObject(maxTemp, mainTemp, windSpeed, season);
 
 
 

@@ -77,7 +77,7 @@ public class CompassService extends Service {
 
     private TimelineManager mTimelineManager;
     private LiveCard mLiveCard;
-    private WeatherRender mRenderer;
+    private CompassRenderer mRenderer;
 
     @Override
     public void onCreate() {
@@ -115,7 +115,7 @@ public class CompassService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (mLiveCard == null) {
             mLiveCard = mTimelineManager.createLiveCard(LIVE_CARD_ID);
-            mRenderer = new WeatherRender(this);
+            mRenderer = new CompassRenderer(this, mOrientationManager, mLandmarks);
 
             mLiveCard.setDirectRenderingEnabled(true).getSurfaceHolder().addCallback(mRenderer);
 

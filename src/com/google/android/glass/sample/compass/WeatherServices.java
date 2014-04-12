@@ -25,6 +25,8 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -139,7 +141,29 @@ public class WeatherServices extends Service {
 
       Log.d("weather", result);
 
+      try {
+        JSONObject jsonObj = new JSONObject(result);
+        String mResult = jsonObj.getString("results").replace("]", "").replace("[", "");
+        Log.d("weather", mResult);
 
+        JSONObject resul = new JSONObject(mResult);
+
+        Log.d("weather", "season : "+ resul.getString("season"));
+        Log.d("weather", "wind speed : "+ resul.getInt("wind_speed"));
+        Log.d("weather", "max-temp : "+ resul.getDouble("max_temp"));
+        Log.d("weather", "presure : "+ resul.getDouble("pressure"));
+
+
+        String season = resul.getString("season");
+        double windSpeed = resul.getInt("wind_speed");
+        double maxTemp = resul.getDouble("max_temp");
+        double mainTemp = resul.getDouble("min_temp");
+
+
+
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
       //Do anything with response..
     }
   }

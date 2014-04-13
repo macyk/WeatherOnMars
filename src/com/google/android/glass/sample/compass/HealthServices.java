@@ -102,7 +102,7 @@ private TextToSpeech mSpeech;
             mRenderer = new HealthRender(this,0);
             mRenderer2 = new HealthRender(this,1);
             mLiveCard.setDirectRenderingEnabled(true).getSurfaceHolder().addCallback(mRenderer);
-            mLiveCard2.setDirectRenderingEnabled(true).getSurfaceHolder().addCallback(mRenderer);
+            mLiveCard2.setDirectRenderingEnabled(true).getSurfaceHolder().addCallback(mRenderer2);
         }
         return START_STICKY;
     }

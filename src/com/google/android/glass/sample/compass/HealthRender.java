@@ -102,10 +102,10 @@ public class HealthRender implements SurfaceHolder.Callback {
           iv2.setImageResource(R.drawable.blood);
       }
       else{
-          iv1.setImageResource(R.drawable.pulse);
-          iv2.setImageResource(R.drawable.gsr);
-          iv2.setImageResource(R.drawable.suit);
-          iv2.setImageResource(R.drawable.blood);
+          iv1.setImageResource(R.drawable.temp);
+          iv2.setImageResource(R.drawable.o2);
+          iv2.setImageResource(R.drawable.radiation);
+          iv2.setImageResource(R.drawable.pulse);
       }
 
       
@@ -164,16 +164,16 @@ public class HealthRender implements SurfaceHolder.Callback {
             mLayout.draw(canvas);
 
           if(cardNumber == 0){
-            tv1.setText("pulse : "+HealthServices.pulse);
-            tv2.setText("gsr : "+HealthServices.gsr);
-            tv3.setText("suit pressure : "+HealthServices.suitpresure);
-            tv4.setText("blood presure : "+HealthServices.bloodpresure);
+            tv1.setText(HealthServices.pulse);
+            tv2.setText(HealthServices.gsr);
+            tv3.setText(HealthServices.suitpresure);
+            tv4.setText(HealthServices.bloodpresure);
           }
           else {
-            tv1.setText("temp : "+HealthServices.temp);
-            tv2.setText("02 : "+HealthServices.o2);
-            tv3.setText("radiation : "+HealthServices.radiation);
-            tv4.setText("pulse : "+HealthServices.pulse);
+            tv1.setText(HealthServices.temp);
+            tv2.setText(HealthServices.o2);
+            tv3.setText(HealthServices.radiation);
+            tv4.setText(HealthServices.pulse);
           }
 
           try {

@@ -42,8 +42,10 @@ public class HealthRender implements SurfaceHolder.Callback {
     private final FrameLayout mLayout;
 //    private final RelativeLayout mTipsContainer;
 //    private final TextView mTipsView;
+    TextView tv1, tv2, tv3, tv4;
 
-    private final OrientationManager.OnChangedListener mCompassListener =
+
+  private final OrientationManager.OnChangedListener mCompassListener =
             new OrientationManager.OnChangedListener() {
 
                 @Override
@@ -82,13 +84,13 @@ public class HealthRender implements SurfaceHolder.Callback {
 
       ImageView iv1 = (ImageView) mLayout.findViewById(R.id.iv1);
 //      iv1.setImageDrawable();
-      TextView tv1 = (TextView) mLayout.findViewById(R.id.tv1);
+       tv1 = (TextView) mLayout.findViewById(R.id.tv1);
       tv1.setText("pulse : "+HealthServices.pulse);
 
 
       ImageView iv2 = (ImageView) mLayout.findViewById(R.id.iv2);
 //      iv2.setImageDrawable();
-      TextView tv2 = (TextView) mLayout.findViewById(R.id.tv2);
+       tv2 = (TextView) mLayout.findViewById(R.id.tv2);
       tv2.setText("gsr : "+HealthServices.gsr);
 
 
@@ -158,7 +160,12 @@ public class HealthRender implements SurfaceHolder.Callback {
         if (canvas != null) {
             mLayout.draw(canvas);
 
-            try {
+          tv2.setText("gsr : "+HealthServices.gsr);
+          tv1.setText("pulse : "+HealthServices.pulse);
+
+
+
+          try {
                 mHolder.unlockCanvasAndPost(canvas);
             } catch (RuntimeException e) {
                 Log.d(TAG, "unlockCanvasAndPost failed", e);

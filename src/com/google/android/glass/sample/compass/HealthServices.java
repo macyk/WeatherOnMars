@@ -165,7 +165,7 @@ public class HealthBinder extends Binder {
         // ....
         // ....
 
-        new RequestTask().execute("http://192.168.1.130/biomu/getpulse.php");
+        new RequestTask().execute("http://192.168.1.130/biomu/getdata.php");
         currentState = STATE_NORMAL;
         return true;
     }

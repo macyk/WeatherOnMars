@@ -207,7 +207,7 @@ public class HealthBinder extends Binder {
         Log.d("weather","publishCard() called.");
         if (mLiveCard != null) {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-                    R.layout.compass);
+                    R.layout.health);
             mLiveCard.setViews(remoteViews);
             Intent intent = new Intent(context, CompassMenuActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

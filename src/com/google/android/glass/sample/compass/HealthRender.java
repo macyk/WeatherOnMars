@@ -73,7 +73,7 @@ public class HealthRender implements SurfaceHolder.Callback {
      */
     public HealthRender(Context context) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        mLayout = (FrameLayout) inflater.inflate(R.layout.compass, null);
+        mLayout = (FrameLayout) inflater.inflate(R.layout.health, null);
         mLayout.setWillNotDraw(false);
 
         mTipsContainer = (RelativeLayout) mLayout.findViewById(R.id.tips_container);

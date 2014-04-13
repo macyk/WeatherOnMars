@@ -27,7 +27,7 @@ public class HealthRender implements SurfaceHolder.Callback {
     private static final float TOO_STEEP_PITCH_DEGREES = 70.0f;
 
     /** The refresh rate, in frames per second, of the compass. */
-    private static final int REFRESH_RATE_FPS = 45;
+    private static final int REFRESH_RATE_FPS = 1;
 
     /** The duration, in milliseconds, of one frame. */
     private static final long FRAME_TIME_MILLIS = TimeUnit.SECONDS.toMillis(1) / REFRESH_RATE_FPS;

@@ -17,11 +17,8 @@
 package com.google.android.glass.sample.compass;
 
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,32 +29,12 @@ import android.view.MenuItem;
  */
 public class CompassMenuActivity extends Activity {
 
-    private CompassService.CompassBinder mCompassService;
     private boolean mResumed;
-
-    private ServiceConnection mConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            if (service instanceof CompassService.CompassBinder) {
-                mCompassService = (CompassService.CompassBinder) service;
-                openOptionsMenu();
-            }
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            // Do nothing.
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bindService(new Intent(this, CompassService.class), mConnection, 0);
-      Log.d("weather", "downloading weather");
-
-
-
+        Log.d("weather", "downloading weather");
     }
 
     @Override
@@ -74,13 +51,6 @@ public class CompassMenuActivity extends Activity {
     }
 
     @Override
-    public void openOptionsMenu() {
-        if (mResumed && mCompassService != null) {
-            super.openOptionsMenu();
-        }
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.compass, menu);
         return true;
@@ -90,10 +60,10 @@ public class CompassMenuActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.read_aloud:
-                mCompassService.readHeadingAloud();
+                Log.d("weather","read lout");
                 return true;
             case R.id.stop:
-                stopService(new Intent(this, CompassService.class));
+                stopService(new Intent(this, WeatherServices.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -102,12 +72,7 @@ public class CompassMenuActivity extends Activity {
 
     @Override
     public void onOptionsMenuClosed(Menu menu) {
-        super.onOptionsMenuClosed(menu);
-
-        unbindService(mConnection);
-
-        // We must call finish() from this method to ensure that the activity ends either when an
-        // item is selected from the menu or when the menu is dismissed by swiping down.
+        // Nothing else to do, closing the Activity.
         finish();
     }
 }

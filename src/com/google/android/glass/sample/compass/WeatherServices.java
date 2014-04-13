@@ -173,12 +173,9 @@ public class WeatherServices extends Service
       }
       liveCard.setViews(remoteViews);
 
-
-
-
-
       Intent intent = new Intent(context, CompassMenuActivity.class);
-      liveCard.setAction(PendingIntent.getActivity(context, 0, intent, 0));
+      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+      liveCard.setAction(PendingIntent.getActivity(this, 0, intent, 0));
       liveCard.publish(LiveCard.PublishMode.REVEAL);
     } else {
       // Card is already published.

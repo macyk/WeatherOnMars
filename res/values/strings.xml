@@ -19,7 +19,7 @@
     <!-- Launch-related strings. -->
     <string name="app_name">BIO MU</string>
     <string name="show_compass_voice_trigger">show a compass</string>
-    <string name="show_mars_weather_voice_trigger">show Mars Weather</string>
+    <string name="show_mars_weather_voice_trigger">Mars Weather</string>
     <string name="show_health_voice_trigger">show my health</string>
 
     <!-- Strings describing locations. -->

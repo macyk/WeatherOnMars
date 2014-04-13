@@ -55,7 +55,7 @@ private LiveCard mLiveCard;
 private  LiveCard mLiveCard2;
 private String  mResult;
 private Task mTask;
-private HealthRender mRenderer;
+private HealthRender mRenderer, mRenderer2;
 
   public static String pulse;
   public static String gsr;
@@ -99,7 +99,8 @@ private TextToSpeech mSpeech;
             TimelineManager tm = TimelineManager.from(this);
             mLiveCard = tm.createLiveCard(cardId);
             mLiveCard2 = tm.createLiveCard(cardId2);
-            mRenderer = new HealthRender(this);
+            mRenderer = new HealthRender(this,0);
+            mRenderer2 = new HealthRender(this,1);
             mLiveCard.setDirectRenderingEnabled(true).getSurfaceHolder().addCallback(mRenderer);
             mLiveCard2.setDirectRenderingEnabled(true).getSurfaceHolder().addCallback(mRenderer);
         }

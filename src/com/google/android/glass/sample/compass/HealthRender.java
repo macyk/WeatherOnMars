@@ -43,6 +43,7 @@ public class HealthRender implements SurfaceHolder.Callback {
 //    private final RelativeLayout mTipsContainer;
 //    private final TextView mTipsView;
     TextView tv1, tv2, tv3, tv4;
+  private  int cardNumber ;
 
 
   private final OrientationManager.OnChangedListener mCompassListener =
@@ -73,38 +74,40 @@ public class HealthRender implements SurfaceHolder.Callback {
      * Creates a new instance of the {@code CompassRenderer} with the specified context,
      * orientation manager, and landmark collection.
      */
-    public HealthRender(Context context) {
+    public HealthRender(Context context, int mCardNumber) {
         LayoutInflater inflater = LayoutInflater.from(context);
         mLayout = (FrameLayout) inflater.inflate(R.layout.health, null);
         mLayout.setWillNotDraw(false);
-
+        cardNumber = mCardNumber;
 //        mTipsContainer = (RelativeLayout) mLayout.findViewById(R.id.tips_container);
 //        mTipsView = (TextView) mLayout.findViewById(R.id.tips_view);
 
 
       ImageView iv1 = (ImageView) mLayout.findViewById(R.id.iv1);
-//      iv1.setImageDrawable();
        tv1 = (TextView) mLayout.findViewById(R.id.tv1);
-      tv1.setText("pulse : "+HealthServices.pulse);
-
 
       ImageView iv2 = (ImageView) mLayout.findViewById(R.id.iv2);
-//      iv2.setImageDrawable();
        tv2 = (TextView) mLayout.findViewById(R.id.tv2);
-      tv2.setText("gsr : "+HealthServices.gsr);
-
 
       ImageView iv3 = (ImageView) mLayout.findViewById(R.id.iv3);
-//      iv3.setImageDrawable();
-      TextView tv3 = (TextView) mLayout.findViewById(R.id.tv3);
-//      tv3.setText();
-
+       tv3 = (TextView) mLayout.findViewById(R.id.tv3);
 
       ImageView iv4 = (ImageView) mLayout.findViewById(R.id.iv4);
-//      iv4.setImageDrawable();
-      TextView tv4 = (TextView) mLayout.findViewById(R.id.tv4);
-//      tv4.setText();
-      
+       tv4 = (TextView) mLayout.findViewById(R.id.tv4);
+
+      if(cardNumber == 0){
+          iv1.setImageResource(R.drawable.pulse);
+          iv2.setImageResource(R.drawable.gsr);
+          iv2.setImageResource(R.drawable.suit);
+          iv2.setImageResource(R.drawable.blood);
+      }
+      else{
+          iv1.setImageResource(R.drawable.pulse);
+          iv2.setImageResource(R.drawable.gsr);
+          iv2.setImageResource(R.drawable.suit);
+          iv2.setImageResource(R.drawable.blood);
+      }
+
       
     }
 
@@ -160,10 +163,18 @@ public class HealthRender implements SurfaceHolder.Callback {
         if (canvas != null) {
             mLayout.draw(canvas);
 
-          tv2.setText("gsr : "+HealthServices.gsr);
-          tv1.setText("pulse : "+HealthServices.pulse);
-
-
+          if(cardNumber == 0){
+            tv1.setText("pulse : "+HealthServices.pulse);
+            tv2.setText("gsr : "+HealthServices.gsr);
+            tv3.setText("suit pressure : "+HealthServices.suitpresure);
+            tv4.setText("blood presure : "+HealthServices.bloodpresure);
+          }
+          else {
+            tv1.setText("temp : "+HealthServices.temp);
+            tv2.setText("02 : "+HealthServices.o2);
+            tv3.setText("radiation : "+HealthServices.radiation);
+            tv4.setText("pulse : "+HealthServices.pulse);
+          }
 
           try {
                 mHolder.unlockCanvasAndPost(canvas);

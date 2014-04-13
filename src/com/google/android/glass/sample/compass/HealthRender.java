@@ -98,14 +98,14 @@ public class HealthRender implements SurfaceHolder.Callback {
       if(cardNumber == 0){
           iv1.setImageResource(R.drawable.pulse);
           iv2.setImageResource(R.drawable.gsr);
-          iv2.setImageResource(R.drawable.suit);
-          iv2.setImageResource(R.drawable.blood);
+          iv3.setImageResource(R.drawable.suit);
+          iv4.setImageResource(R.drawable.blood);
       }
       else{
           iv1.setImageResource(R.drawable.temp);
           iv2.setImageResource(R.drawable.o2);
-          iv2.setImageResource(R.drawable.radiation);
-          iv2.setImageResource(R.drawable.pulse);
+          iv3.setImageResource(R.drawable.radiation);
+          iv4.setImageResource(R.drawable.pulse);
       }
 
       

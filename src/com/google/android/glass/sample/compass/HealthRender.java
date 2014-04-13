@@ -83,13 +83,13 @@ public class HealthRender implements SurfaceHolder.Callback {
       ImageView iv1 = (ImageView) mLayout.findViewById(R.id.iv1);
 //      iv1.setImageDrawable();
       TextView tv1 = (TextView) mLayout.findViewById(R.id.tv1);
-//      tv1.setText();
+      tv1.setText("pulse : "+HealthServices.pulse);
 
 
       ImageView iv2 = (ImageView) mLayout.findViewById(R.id.iv2);
 //      iv2.setImageDrawable();
       TextView tv2 = (TextView) mLayout.findViewById(R.id.tv2);
-//      tv2.setText();
+      tv2.setText("gsr : "+HealthServices.gsr);
 
 
       ImageView iv3 = (ImageView) mLayout.findViewById(R.id.iv3);

@@ -21,6 +21,8 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -53,6 +55,15 @@ private LiveCard mLiveCard;
 private String  mResult;
 private Task mTask;
 private HealthRender mRenderer;
+
+  public static String pulse;
+  public static String gsr;
+  public static String temp;
+  public static String o2 ;
+  public static String suitpresure ;
+  public static String bloodpresure ;
+  public static String radiation ;
+
 
 private final HealthBinder mBinder = new HealthBinder();
 
@@ -265,7 +276,32 @@ class RequestTask extends AsyncTask<String, String, String> {
         Log.d("weather", result);
 
         mResult = result;
-        publishCard(getApplicationContext());
+      JSONArray list = null;
+      try {
+         list = new JSONArray(result);
+
+
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+      Log.d("weather", list.toString());
+
+      try {
+         pulse = list.getJSONObject(0).getString("pulse");
+         gsr = list.getJSONObject(1).getString("gsr");
+         temp = list.getJSONObject(2).getString("temp");
+         o2 = list.getJSONObject(3).getString("o2");
+         suitpresure = list.getJSONObject(4).getString("suitpresure");
+         bloodpresure = list.getJSONObject(5).getString("bloodpresure");
+         radiation = list.getJSONObject(6).getString("radiation");
+
+        Log.d("weather", pulse);
+
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+
+      publishCard(getApplicationContext());
         //Do anything with response..
     }
 }

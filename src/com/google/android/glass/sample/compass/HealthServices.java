@@ -52,6 +52,7 @@ private int currentState;
 
 // For live card
 private LiveCard mLiveCard;
+private  LiveCard mLiveCard2;
 private String  mResult;
 private Task mTask;
 private HealthRender mRenderer;
@@ -92,12 +93,15 @@ private TextToSpeech mSpeech;
     {
         Log.i("weather", " + startId +  + intent");
         onServiceStart();
-        if (mLiveCard == null) {
+        if (mLiveCard == null && mLiveCard2 == null) {
             String cardId = "health";
+            String cardId2 = "health2";
             TimelineManager tm = TimelineManager.from(this);
             mLiveCard = tm.createLiveCard(cardId);
+            mLiveCard2 = tm.createLiveCard(cardId2);
             mRenderer = new HealthRender(this);
             mLiveCard.setDirectRenderingEnabled(true).getSurfaceHolder().addCallback(mRenderer);
+            mLiveCard2.setDirectRenderingEnabled(true).getSurfaceHolder().addCallback(mRenderer);
         }
         return START_STICKY;
     }
@@ -216,14 +220,17 @@ public class HealthBinder extends Binder {
     private void publishCard(Context context)
     {
         Log.d("weather","publishCard() called.");
-        if (mLiveCard != null) {
+        if (mLiveCard != null && mLiveCard2 != null) {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                     R.layout.health);
             mLiveCard.setViews(remoteViews);
+            mLiveCard2.setViews(remoteViews);
             Intent intent = new Intent(context, CompassMenuActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             mLiveCard.setAction(PendingIntent.getActivity(context, 0, intent, 0));
             mLiveCard.publish(LiveCard.PublishMode.REVEAL);
+            mLiveCard2.setAction(PendingIntent.getActivity(context, 0, intent, 0));
+            mLiveCard2.publish(LiveCard.PublishMode.REVEAL);
         } else {
             // Card is already published.
             return;
@@ -236,6 +243,10 @@ public class HealthBinder extends Binder {
         if (mLiveCard != null) {
             mLiveCard.unpublish();
             mLiveCard = null;
+        }
+        if (mLiveCard2 != null) {
+            mLiveCard2.unpublish();
+            mLiveCard2 = null;
         }
     }
 

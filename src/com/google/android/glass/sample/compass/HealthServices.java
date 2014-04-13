@@ -104,6 +104,10 @@ private TextToSpeech mSpeech;
             mLiveCard.setDirectRenderingEnabled(true).getSurfaceHolder().addCallback(mRenderer);
             mLiveCard2.setDirectRenderingEnabled(true).getSurfaceHolder().addCallback(mRenderer2);
         }
+        else {
+            mLiveCard.unpublish();
+            mLiveCard2.unpublish();
+        }
         return START_STICKY;
     }
 
@@ -296,18 +300,19 @@ class RequestTask extends AsyncTask<String, String, String> {
       } catch (JSONException e) {
         e.printStackTrace();
       }
-      Log.d("weather", list.toString());
 
       try {
-         pulse = list.getJSONObject(0).getString("pulse");
-         gsr = list.getJSONObject(1).getString("gsr");
-         temp = list.getJSONObject(2).getString("temp");
-         o2 = list.getJSONObject(3).getString("o2");
-         suitpresure = list.getJSONObject(4).getString("suitpresure");
-         bloodpresure = list.getJSONObject(5).getString("bloodpresure");
-         radiation = list.getJSONObject(6).getString("radiation");
+          if(list!=null) {
+              pulse = String.valueOf(list.getJSONObject(0).getInt("pulse"));
+              gsr = list.getJSONObject(1).getString("gsr");
+              temp = list.getJSONObject(2).getString("temp");
+              o2 = list.getJSONObject(3).getString("o2");
+              suitpresure = list.getJSONObject(4).getString("suitpressure");
+              bloodpresure = list.getJSONObject(5).getString("bloodpressure");
+              radiation = list.getJSONObject(6).getString("radiation");
 
-        Log.d("weather", pulse);
+              Log.d("weather", pulse);
+          }
 
       } catch (JSONException e) {
         e.printStackTrace();

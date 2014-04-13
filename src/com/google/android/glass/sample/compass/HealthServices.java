@@ -4,7 +4,6 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
@@ -12,7 +11,6 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import com.google.android.glass.sample.compass.model.WeatherObject;
 import com.google.android.glass.timeline.LiveCard;
 import com.google.android.glass.timeline.TimelineManager;
 
@@ -51,19 +49,13 @@ private int currentState;
 
 
 // For live card
-private LiveCard liveCard;
-
-public WeatherObject weatherObject;
+private LiveCard mLiveCard;
 private String  mResult;
+private Task mTask;
+private HealthRender mRenderer;
 
+private final HealthBinder mBinder = new HealthBinder();
 
-// No need for IPC...
-public class LocalBinder extends Binder {
-    public HealthServices getService() {
-        return HealthServices.this;
-    }
-}
-private final IBinder mBinder = new LocalBinder();
 private TextToSpeech mSpeech;
 
     public HealthServices()
@@ -89,7 +81,47 @@ private TextToSpeech mSpeech;
     {
         Log.i("weather", " + startId +  + intent");
         onServiceStart();
+        if (mLiveCard == null) {
+            String cardId = "health";
+            TimelineManager tm = TimelineManager.from(this);
+            mLiveCard = tm.createLiveCard(cardId);
+            mRenderer = new HealthRender(this);
+            mLiveCard.setDirectRenderingEnabled(true).getSurfaceHolder().addCallback(mRenderer);
+        }
         return START_STICKY;
+    }
+
+    private class Task extends AsyncTask<Void, String, Void> {
+
+        private boolean running = true;
+        @Override
+        protected Void doInBackground(Void... params) {
+            while( running ) {
+                //fetch data from server;
+                this.publishProgress("updated json");
+                try {
+                    Thread.sleep(5000); // removed try/catch for readability
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            if( ! running ) {
+                return;
+            }
+            String json = values[0];
+            //update views directly, as this is run on the UI thread.
+            //textView.setText(json);
+        }
+
+        public void stop() {
+            running = false;
+        }
     }
 
 public class HealthBinder extends Binder {
@@ -97,10 +129,6 @@ public class HealthBinder extends Binder {
      * Read the current heading aloud using the text-to-speech engine.
      */
     public void readHeadingAloud() {
-
-        Resources res = getResources();
-        String[] spokenDirections = res.getStringArray(R.array.spoken_directions);
-
 
         String headingText = "ha ha";
         mSpeech.speak(headingText, TextToSpeech.QUEUE_FLUSH, null);
@@ -120,7 +148,7 @@ public class HealthBinder extends Binder {
     {
         // ???
         onServiceStop();
-
+        mLiveCard.getSurfaceHolder().removeCallback(mRenderer);
         super.onDestroy();
     }
 
@@ -138,18 +166,21 @@ public class HealthBinder extends Binder {
         // ....
 
         new RequestTask().execute("http://192.168.1.130/biomu/getpulse.php");
-
         currentState = STATE_NORMAL;
         return true;
     }
 
     private boolean onServicePause()
     {
+        mTask.stop();
+        mTask = null;
         Log.d("weather","onServicePause() called.");
         return true;
     }
     private boolean onServiceResume()
     {
+        mTask = new Task();
+        mTask.execute();
         Log.d("weather","onServiceResume() called.");
         return true;
     }
@@ -157,7 +188,8 @@ public class HealthBinder extends Binder {
     private boolean onServiceStop()
     {
         Log.d("weather","onServiceStop() called.");
-
+        mTask.stop();
+        mTask = null;
         // TBD:
         // Unpublish livecard here
         // .....
@@ -173,19 +205,14 @@ public class HealthBinder extends Binder {
     private void publishCard(Context context)
     {
         Log.d("weather","publishCard() called.");
-        if (liveCard == null) {
-            String cardId = "health";
-            TimelineManager tm = TimelineManager.from(context);
-            liveCard = tm.createLiveCard(cardId);
+        if (mLiveCard != null) {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-                    R.layout.livecard_livecarddemo);
-            remoteViews.setTextViewText(R.id.tvTempMin, String.valueOf(mResult));
-
-            liveCard.setViews(remoteViews);
+                    R.layout.compass);
+            mLiveCard.setViews(remoteViews);
             Intent intent = new Intent(context, CompassMenuActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            liveCard.setAction(PendingIntent.getActivity(context, 0, intent, 0));
-            liveCard.publish(LiveCard.PublishMode.REVEAL);
+            mLiveCard.setAction(PendingIntent.getActivity(context, 0, intent, 0));
+            mLiveCard.publish(LiveCard.PublishMode.REVEAL);
         } else {
             // Card is already published.
             return;
@@ -195,9 +222,9 @@ public class HealthBinder extends Binder {
     private void unpublishCard(Context context)
     {
         Log.d("weather","unpublishCard() called.");
-        if (liveCard != null) {
-            liveCard.unpublish();
-            liveCard = null;
+        if (mLiveCard != null) {
+            mLiveCard.unpublish();
+            mLiveCard = null;
         }
     }
 

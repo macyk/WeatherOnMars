@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.concurrent.TimeUnit;
@@ -40,8 +40,8 @@ public class HealthRender implements SurfaceHolder.Callback {
     private int mSurfaceHeight;
 
     private final FrameLayout mLayout;
-    private final RelativeLayout mTipsContainer;
-    private final TextView mTipsView;
+//    private final RelativeLayout mTipsContainer;
+//    private final TextView mTipsView;
 
     private final OrientationManager.OnChangedListener mCompassListener =
             new OrientationManager.OnChangedListener() {
@@ -76,8 +76,34 @@ public class HealthRender implements SurfaceHolder.Callback {
         mLayout = (FrameLayout) inflater.inflate(R.layout.health, null);
         mLayout.setWillNotDraw(false);
 
-        mTipsContainer = (RelativeLayout) mLayout.findViewById(R.id.tips_container);
-        mTipsView = (TextView) mLayout.findViewById(R.id.tips_view);
+//        mTipsContainer = (RelativeLayout) mLayout.findViewById(R.id.tips_container);
+//        mTipsView = (TextView) mLayout.findViewById(R.id.tips_view);
+
+
+      ImageView iv1 = (ImageView) mLayout.findViewById(R.id.iv1);
+//      iv1.setImageDrawable();
+      TextView tv1 = (TextView) mLayout.findViewById(R.id.tv1);
+//      tv1.setText();
+
+
+      ImageView iv2 = (ImageView) mLayout.findViewById(R.id.iv2);
+//      iv2.setImageDrawable();
+      TextView tv2 = (TextView) mLayout.findViewById(R.id.tv2);
+//      tv2.setText();
+
+
+      ImageView iv3 = (ImageView) mLayout.findViewById(R.id.iv3);
+//      iv3.setImageDrawable();
+      TextView tv3 = (TextView) mLayout.findViewById(R.id.tv3);
+//      tv3.setText();
+
+
+      ImageView iv4 = (ImageView) mLayout.findViewById(R.id.iv4);
+//      iv4.setImageDrawable();
+      TextView tv4 = (TextView) mLayout.findViewById(R.id.tv4);
+//      tv4.setText();
+      
+      
     }
 
     @Override
@@ -158,14 +184,14 @@ public class HealthRender implements SurfaceHolder.Callback {
         boolean show = (stringId != 0);
 
         if (show) {
-            mTipsView.setText(stringId);
+//            mTipsView.setText(stringId);
             doLayout();
         }
 
-        if (mTipsContainer.getAnimation() == null) {
-            float newAlpha = (show ? 1.0f : 0.0f);
-            mTipsContainer.animate().alpha(newAlpha).start();
-        }
+//        if (mTipsContainer.getAnimation() == null) {
+//            float newAlpha = (show ? 1.0f : 0.0f);
+//            mTipsContainer.animate().alpha(newAlpha).start();
+//        }
     }
 
     /**

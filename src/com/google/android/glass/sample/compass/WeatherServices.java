@@ -12,7 +12,6 @@ import android.widget.RemoteViews;
 
 import com.google.android.glass.sample.compass.model.WeatherObject;
 import com.google.android.glass.timeline.LiveCard;
-import com.google.android.glass.timeline.TimelineManager;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -155,8 +154,7 @@ public class WeatherServices extends Service
     Log.d("weather","publishCard() called.");
     if (liveCard == null) {
       String cardId = "livecarddemo_card";
-      TimelineManager tm = TimelineManager.from(this);
-      liveCard = tm.createLiveCard(cardId);
+        liveCard = new LiveCard(this, cardId);
 
 
       RemoteViews remoteViews = new RemoteViews(context.getPackageName(),

@@ -12,7 +12,6 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.google.android.glass.timeline.LiveCard;
-import com.google.android.glass.timeline.TimelineManager;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -96,9 +95,9 @@ private TextToSpeech mSpeech;
         if (mLiveCard == null && mLiveCard2 == null) {
             String cardId = "health";
             String cardId2 = "health2";
-            TimelineManager tm = TimelineManager.from(this);
-            mLiveCard = tm.createLiveCard(cardId);
-            mLiveCard2 = tm.createLiveCard(cardId2);
+            mLiveCard = new LiveCard(this, cardId);
+            mLiveCard2 = new LiveCard(this, cardId2);
+
             mRenderer = new HealthRender(this,0);
             mRenderer2 = new HealthRender(this,1);
             mLiveCard.setDirectRenderingEnabled(true).getSurfaceHolder().addCallback(mRenderer);

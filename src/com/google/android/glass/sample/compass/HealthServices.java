@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Binder;
-import android.os.Handler;
 import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -174,7 +173,6 @@ public class HealthBinder extends Binder {
     }
 
 
-
     // Service state handlers.
     // ....
 
@@ -187,11 +185,7 @@ public class HealthBinder extends Binder {
         // ....
         // ....
 
-
-
-//        new RequestTask().execute("http://192.168.1.130/biomu/getdata.php");
-
-      startRepeatingTask();
+        new RequestTask().execute("http://192.168.1.142:3000/getdata");
         currentState = STATE_NORMAL;
         return true;
     }
@@ -244,6 +238,8 @@ public class HealthBinder extends Binder {
             mLiveCard2.publish(LiveCard.PublishMode.REVEAL);
         } else {
             // Card is already published.
+            mLiveCard.unpublish();
+            mLiveCard2.unpublish();
             return;
         }
     }
@@ -328,27 +324,4 @@ class RequestTask extends AsyncTask<String, String, String> {
         //Do anything with response..
     }
 }
-
-
-  private int mInterval = 1000; // 5 seconds by default, can be changed later
-  private Handler mHandler;
-
-
-  Runnable mStatusChecker = new Runnable() {
-    @Override
-    public void run() {
-
-      new RequestTask().execute("http://192.168.1.130/biomu/getdata.php");
-
-      mHandler.postDelayed(mStatusChecker, mInterval);
-    }
-  };
-
-  void startRepeatingTask() {
-    mStatusChecker.run();
-  }
-
-  void stopRepeatingTask() {
-    mHandler.removeCallbacks(mStatusChecker);
-  }
 }

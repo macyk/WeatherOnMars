@@ -155,7 +155,7 @@ public class WeatherServices extends Service
     Log.d("weather","publishCard() called.");
     if (liveCard == null) {
       String cardId = "livecarddemo_card";
-      TimelineManager tm = TimelineManager.from(context);
+      TimelineManager tm = TimelineManager.from(this);
       liveCard = tm.createLiveCard(cardId);
 
 
